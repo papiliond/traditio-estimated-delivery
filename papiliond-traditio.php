@@ -13,6 +13,6 @@ if (!defined("ABSPATH")) {
 
 include(dirname(__FILE__) . '/install.php');
 include(dirname(__FILE__) . '/settings.php');
-include(dirname(__FILE__) . '/add-menu.php');
+include(dirname(__FILE__) . '/admin-page.php');
 
 include(dirname(__FILE__) . '/asset.php');
