@@ -16,3 +16,5 @@ include(dirname(__FILE__) . '/settings.php');
 include(dirname(__FILE__) . '/admin-page.php');
 
 include(dirname(__FILE__) . '/asset.php');
+
+include(dirname(__FILE__) . '/views/product.php');
