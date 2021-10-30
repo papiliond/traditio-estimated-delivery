@@ -1,5 +1,7 @@
     <?php
 
+    include(dirname(__FILE__) . '/../utils/get-estimated-delivery.php');
+
     function estimated_delivery_product_template($days)
     {
         echo '<style>
@@ -23,13 +25,13 @@
 
         echo '<div class="estimatedDelivery-root">
                 <span class="dashicons dashicons-clock"></span>' .
-            ' Szállítás várható ideje: '.'<span class="estimatedDelivery-days">'. $days .' nap'.'</span>' .
+            ' Szállítás várható időtartama: ' . '<span class="estimatedDelivery-days">' . $days . ' nap' . '</span>' .
             '</div>';
     }
 
     function estimated_delivery_single_product_summary()
     {
-        $estimatedDeliveryInDays = get_option('estimated_delivery_in_days');
+        $estimatedDeliveryInDays = get_estimated_delivery();
         echo estimated_delivery_product_template($estimatedDeliveryInDays);
     }
 
