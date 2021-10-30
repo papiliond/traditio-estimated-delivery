@@ -26,13 +26,17 @@ function get_estimated_delivery()
 function getDaysNeeded($deliveryDate, $holidays)
 {
     $newDate = null;
-
     foreach ($holidays as $holiday) {
-        if (trim($holiday) === $deliveryDate->format('m/d/y')) {
+        if (trim($holiday) === $deliveryDate->format('m/d/y') || getIsWeekend($deliveryDate)) {
             $newDate = clone $deliveryDate;
             date_add($newDate, date_interval_create_from_date_string('1 days'));
         }
     }
 
     return 1 + ($newDate !== null ? getDate($newDate, $holidays) : 0);
+}
+
+function getIsWeekend($date)
+{
+    return $date->format('N') >= 6;
 }
