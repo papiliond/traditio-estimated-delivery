@@ -9,7 +9,7 @@
                 font-weight: 500;
                 line-height: 1.5;
                 background: white;
-                width: 320px;
+                width: 360px;
                 padding: 0.5rem 0.5rem 0.5rem;
                 margin-bottom: 1rem;
                 border-left: 4px solid #000;
@@ -32,7 +32,7 @@
     function estimated_delivery_single_product_summary()
     {
         $estimatedDeliveryInDays = get_estimated_delivery();
-        echo estimated_delivery_product_template($estimatedDeliveryInDays);
+        estimated_delivery_product_template($estimatedDeliveryInDays);
     }
 
     add_action("woocommerce_before_single_product_summary", "estimated_delivery_single_product_summary", 20, 0);
