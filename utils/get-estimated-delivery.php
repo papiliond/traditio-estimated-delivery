@@ -24,7 +24,7 @@ function get_estimated_delivery()
     }
 
     // Calculate days needed to deliver depending on weekends and holidays
-    $daysNeeded = count($deliveryDates);
+    $daysNeeded = 0;
     foreach ($deliveryDates as $deliveryDate) {
         $daysNeeded += getDaysNeeded($deliveryDate, $holidays);
     }
@@ -40,7 +40,7 @@ function getDaysNeeded($deliveryDate, $holidays)
         date_add($newDate, date_interval_create_from_date_string('1 days'));
     }
 
-    return 1 + ($newDate !== null ? getDate($newDate, $holidays) : 0);
+    return 1 + ($newDate !== null ? getDaysNeeded($newDate, $holidays) : 0);
 }
 
 function getIsWeekend($date)
