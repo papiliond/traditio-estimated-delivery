@@ -3,21 +3,21 @@
 function traditio_page()
 {
 ?>
-    <h1>Estimated Delivery Settings</h1>
+    <h1>Szállítási határidő</h1>
     <form method="post" action="options.php">
         <?php settings_fields('traditio-estimated-delivery-settings'); ?>
         <?php do_settings_sections('traditio-estimated-delivery-settings'); ?>
         <table class="form-table">
             <tr valign="top">
-                <th scope="row">Days:</th>
+                <th scope="row">Szállítás ideje (munkanap)</th>
                 <td><input type="number" name="estimated_delivery_in_days" value="<?php echo get_option('estimated_delivery_in_days'); ?>" /></td>
             <tr valign="top">
-                <th scope="row">Deadline:</th>
+                <th scope="row">Szállítás X óráig</th>
                 <td><input type="text" id="estimated_delivery_deadline_time" name="estimated_delivery_deadline_time" value="<?php echo get_option('estimated_delivery_deadline_time'); ?>" /></td>
             </tr>
             </tr>
             <tr valign="top">
-                <th scope="row">Holidays: </br> (1 column CSV)</th>
+                <th scope="row">Ünnapnapok: </br> (egyenként új sorban)</th>
                 <td><textarea id="estimated_delivery_holidays" name="estimated_delivery_holidays" rows="15" cols="75"><?php echo get_option('estimated_delivery_holidays'); ?></textarea></td>
             </tr>
         </table>
@@ -72,8 +72,8 @@ function traditio_page()
 
 function estimated_delivery_info_menu()
 {
-    $page_title = 'Estimated delivery - Traditio';
-    $menu_title = 'Estimated delivery';
+    $page_title = 'Szállítási határidő';
+    $menu_title = 'Szállítási határidő';
     $capability = 'manage_options';
     $menu_slug  = 'traditio-estimated-delivery';
     $function   = 'traditio_page';
