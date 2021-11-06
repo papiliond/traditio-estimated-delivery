@@ -4,6 +4,10 @@
 
     function estimated_delivery_product_template($days)
     {
+        $deliveryInDays = get_option('estimated_delivery_in_days');
+        $deadlineTime = get_option('estimated_delivery_deadline_time');
+        $holidays = explode("\n", get_option('estimated_delivery_holidays'));
+
         echo '<style>
             .estimatedDelivery-root {
                 font-weight: 500;
@@ -25,8 +29,17 @@
 
         echo '<div class="estimatedDelivery-root">
                 <span class="dashicons dashicons-clock"></span>' .
-            ' Szállítás várható időtartama: ' . '<span class="estimatedDelivery-days">' . $days . ' nap' . '</span>' .
+            ' Szállítás várható időtartama: ' . '<span class="estimatedDelivery-days">' . '<span id="estimatedDelivery-counter"></span>' . ' nap' . '</span>' .
             '</div>';
+
+        echo '<script>' . file_get_contents(dirname(__FILE__) . '/../utils/getEstimatedDelivery.js') . '</script>';
+        echo '<script> 
+            
+            const estimatedDelivery = getEstimatedDelivery(' . json_encode($deliveryInDays) . ',' . json_encode($deadlineTime) . ',' . json_encode($holidays) . ');
+            const counterElement = document.getElementById("estimatedDelivery-counter");
+            counterElement.innerText = estimatedDelivery;
+ 
+         </script>';
     }
 
     function estimated_delivery_single_product_summary()
