@@ -1,10 +1,6 @@
 function getEstimatedDeliveryDisplay() {
-    const estimatedDelivery = window.__ESTIMATED_DELIVERY__;
-    
-    const deliveryDate = new Date();
-    deliveryDate.setDate(deliveryDate.getDate() + estimatedDelivery);
-    const label = formatToHungarian(deliveryDate);
-  
-    return `Csomagod várhatóan <span class="estimatedDelivery-days-label">${label}</span> érkezik.`;
-  }
-  
+  const deadlineTime = window.__ESTIMATED_DEADLINE_TIME__;
+  const estimatedDelivery = window.__ESTIMATED_DELIVERY__;
+
+  return `Csomagod várhatóan <span class="estimatedDelivery-days-label">${getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime)}</span> érkezik.`;
+}

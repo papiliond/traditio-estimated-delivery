@@ -1,0 +1,45 @@
+<script>
+    function getEstimatedDeliveryDisplay() {
+        const deadlineTime = window.__ESTIMATED_DEADLINE_TIME__;
+        const estimatedDelivery = window.__ESTIMATED_DELIVERY__;
+
+        return `Csomagod várhatóan <span class="estimatedDelivery-days-label">${getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime)}</span> érkezik.`;
+    }
+</script>
+
+<style>
+    .estimatedDelivery-hook-root {
+        font-weight: 500;
+        line-height: 1.5;
+        background: white;
+        padding: 0.5rem 0.5rem 0.5rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #000;
+        border-radius: 2px 5px 5px 2px;
+        box-shadow: 1px 2px 6px 0px rgb(0 0 0 / 15%);
+    }
+
+    @media (min-width: 481px) {
+        .estimatedDelivery-hook-root {
+            width: max-content;
+        }
+    }
+
+    .estimatedDelivery-days-label {
+        color: #77a464;
+        font-weight: 500;
+    }
+</style>
+
+<div class="estimatedDelivery-hook-root">
+    <span class="dashicons dashicons-clock"></span>
+    <span id="estimatedDelivery-hook-days"></span>
+</div>
+
+<script>
+    (function() {
+        const estimatedDelivery = getEstimatedDeliveryDisplay();
+        const counterElement = document.getElementById("estimatedDelivery-hook-days");
+        counterElement.innerHTML = estimatedDelivery;
+    })();
+</script>

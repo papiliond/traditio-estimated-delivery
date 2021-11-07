@@ -80,3 +80,18 @@ function formatToHungarian(date) {
 
   return Intl.DateTimeFormat("hu", { month: "long", day: "numeric" }).format(date).replace(".", "") + suffix;
 }
+
+function getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime) {
+  let label = "";
+  if (estimatedDelivery === 2 && !getIsWeekend(new Date()) && !isAfterDeadline(new Date(), deadlineTime)) {
+    label = "holnap";
+  } else if (estimatedDelivery === 2 || estimatedDelivery === 3) {
+    label = "holnapután";
+  } else {
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + estimatedDelivery);
+    label = formatToHungarian(deliveryDate);
+  }
+
+  return label;
+}
