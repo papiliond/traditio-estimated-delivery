@@ -7,12 +7,17 @@ function estimated_delivery_mini_checkout_template()
             font-weight: 500;
             line-height: 1.5;
             background: white;
-        width: max-content;
             padding: 0.5rem 0.5rem 0.5rem;
             margin-bottom: 1rem;
             border-left: 4px solid #000;
             border-radius: 2px 5px 5px 2px;
             box-shadow: 1px 2px 6px 0px rgb(0 0 0 / 15%);
+        }
+
+        @media (min-width: 481px) {
+            .estimatedDelivery-checkout-root {
+                width: max-content;
+            }
         }
 
         .estimatedDelivery-days-label {

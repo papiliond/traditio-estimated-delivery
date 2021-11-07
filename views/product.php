@@ -4,22 +4,27 @@ function estimated_delivery_product_template()
 {
 
     echo '<style>
-        .estimatedDelivery-product-root {
-            font-weight: 500;
-            line-height: 1.5;
-            background: white;
-        width: max-content;
-            padding: 0.5rem 0.5rem 0.5rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #000;
-            border-radius: 2px 5px 5px 2px;
-            box-shadow: 1px 2px 6px 0px rgb(0 0 0 / 15%);
-        }
+            .estimatedDelivery-product-root {
+                font-weight: 500;
+                line-height: 1.5;
+                background: white;
+                padding: 0.5rem 0.5rem 0.5rem;
+                margin-bottom: 1rem;
+                border-left: 4px solid #000;
+                border-radius: 2px 5px 5px 2px;
+                box-shadow: 1px 2px 6px 0px rgb(0 0 0 / 15%);
+            }
 
-        .estimatedDelivery-days-label {
-            color:#77a464;
-            font-weight: 500;
-        }
+            @media (min-width: 481px) {
+                .estimatedDelivery-product-root {
+                    width: max-content;
+                }
+            }
+
+            .estimatedDelivery-days-label {
+                color:#77a464;
+                font-weight: 500;
+            }
     </style>';
 
     echo '<div class="estimatedDelivery-product-root">
