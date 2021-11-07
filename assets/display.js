@@ -1,8 +1,6 @@
-function getEstimatedDeliveryDisplay(deliveryInDays, deadlineTime, holidays) {
-  const normalizedHolidays = holidays.map((str) => str.replace("\r", ""));
-  const estimatedDelivery = getEstimatedDelivery(deliveryInDays, deadlineTime, normalizedHolidays);
-
-  console.log({ estimatedDelivery });
+function getEstimatedDeliveryDisplay() {
+  const deadlineTime = window.__ESTIMATED_DEADLINE_TIME__;
+  const estimatedDelivery = window.__ESTIMATED_DELIVERY__;
 
   let label = "";
   if (estimatedDelivery === 2 && !getIsWeekend(new Date()) && !isAfterDeadline(new Date(), deadlineTime)) {

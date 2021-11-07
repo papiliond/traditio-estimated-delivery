@@ -1,8 +1,7 @@
 <?php
 
-function estimated_delivery_product_template()
+function estimated_delivery_mini_cart_template()
 {
-
     echo '<style>
         .estimatedDelivery-root {
             font-weight: 500;
@@ -36,9 +35,9 @@ function estimated_delivery_product_template()
     echo '</script>';
 }
 
-function estimated_delivery_single_product_summary()
+function estimated_delivery_mini_cart_summary()
 {
-    estimated_delivery_product_template();
+    estimated_delivery_mini_cart_template();
 }
 
-add_action("woocommerce_before_single_product_summary", "estimated_delivery_single_product_summary", 20, 0);
+add_action("woocommerce_after_mini_cart", "estimated_delivery_mini_cart_summary", 20, 0);

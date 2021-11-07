@@ -17,4 +17,6 @@ include(dirname(__FILE__) . '/admin-page.php');
 
 include(dirname(__FILE__) . '/asset.php');
 
+include(dirname(__FILE__) . '/views/head.php');
 include(dirname(__FILE__) . '/views/product.php');
+include(dirname(__FILE__) . '/views/mini-cart.php');
