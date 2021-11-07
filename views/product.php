@@ -29,9 +29,11 @@ function estimated_delivery_product_template()
 
     echo '<script>';
     echo ' 
-        const estimatedDelivery = getEstimatedDeliveryDisplay();
-        const counterElement = document.getElementById("estimatedDelivery-days");
-        counterElement.innerHTML = estimatedDelivery;
+        (function() {
+            const estimatedDelivery = getEstimatedDeliveryDisplay();
+            const counterElement = document.getElementById("estimatedDelivery-days");
+            counterElement.innerHTML = estimatedDelivery;
+        })();
     ';
     echo '</script>';
 }
