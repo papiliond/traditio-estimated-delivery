@@ -1,10 +1,9 @@
 <?php
 
-function estimated_delivery_product_template()
+function estimated_delivery_mini_cart_template()
 {
-
     echo '<style>
-        .estimatedDelivery-product-root {
+        .estimatedDelivery-cart-root {
             font-weight: 500;
             line-height: 1.5;
             background: white;
@@ -22,26 +21,26 @@ function estimated_delivery_product_template()
         }
     </style>';
 
-    echo '<div class="estimatedDelivery-product-root">
+    echo '<div class="estimatedDelivery-cart-root">
             <span class="dashicons dashicons-clock"></span>
-            <span id="estimatedDelivery-product-days"></span>'  .
+            <span id="estimatedDelivery-cart-days"></span>'  .
         '</div>';
 
     echo '<script>';
-    echo file_get_contents(dirname(__FILE__) . '/../assets/product.js');
+    echo file_get_contents(dirname(__FILE__) . '/../assets/cart.js');
     echo ' 
-        (function () {
+        (function() {
             const estimatedDelivery = getEstimatedDeliveryDisplay();
-            const counterElement = document.getElementById("estimatedDelivery-product-days");
+            const counterElement = document.getElementById("estimatedDelivery-cart-days");
             counterElement.innerHTML = estimatedDelivery;
-        })();      
+        })();
     ';
     echo '</script>';
 }
 
-function estimated_delivery_single_product_summary()
+function estimated_delivery_cart_summary()
 {
-    estimated_delivery_product_template();
+    estimated_delivery_mini_cart_template();
 }
 
-add_action("woocommerce_before_single_product_summary", "estimated_delivery_single_product_summary", 20, 0);
+add_action("woocommerce_before_cart", "estimated_delivery_cart_summary", 10, 0);

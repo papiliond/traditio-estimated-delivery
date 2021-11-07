@@ -1,9 +1,9 @@
 <?php
 
-function estimated_delivery_mini_cart_template()
+function estimated_delivery_mini_checkout_template()
 {
     echo '<style>
-        .estimatedDelivery-root {
+        .estimatedDelivery-checkout-root {
             font-weight: 500;
             line-height: 1.5;
             background: white;
@@ -21,23 +21,26 @@ function estimated_delivery_mini_cart_template()
         }
     </style>';
 
-    echo '<div class="estimatedDelivery-root">
+    echo '<div class="estimatedDelivery-checkout-root">
             <span class="dashicons dashicons-clock"></span>
-            <span id="estimatedDelivery-days"></span>'  .
+            <span id="estimatedDelivery-checkout-days"></span>'  .
         '</div>';
 
     echo '<script>';
+    echo file_get_contents(dirname(__FILE__) . '/../assets/checkout.js');
     echo ' 
         (function() {
             const estimatedDelivery = getEstimatedDeliveryDisplay();
+            const counterElement = document.getElementById("estimatedDelivery-checkout-days");
+            counterElement.innerHTML = estimatedDelivery;
         })();
     ';
     echo '</script>';
 }
 
-function estimated_delivery_mini_cart_summary()
+function estimated_delivery_checkout_summary()
 {
-    estimated_delivery_mini_cart_template();
+    estimated_delivery_mini_checkout_template();
 }
 
-add_action("woocommerce_after_mini_cart", "estimated_delivery_mini_cart_summary", 20, 0);
+add_action("woocommerce_before_checkout_form", "estimated_delivery_checkout_summary", 10, 0);
