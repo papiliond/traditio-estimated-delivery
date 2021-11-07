@@ -1,6 +1,6 @@
 <?php
 
-function estimated_delivery_mini_cart_template()
+function estimated_delivery_cart_template()
 {
     echo '<style>
         .estimatedDelivery-cart-root {
@@ -45,7 +45,10 @@ function estimated_delivery_mini_cart_template()
 
 function estimated_delivery_cart_summary()
 {
-    estimated_delivery_mini_cart_template();
+    $enable = get_option('estimated_delivery_enable_on_cart');
+    if ($enable) {
+        estimated_delivery_cart_template();
+    }
 }
 
 add_action("woocommerce_before_cart", "estimated_delivery_cart_summary", 10, 0);

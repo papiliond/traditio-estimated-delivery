@@ -20,6 +20,18 @@ function traditio_page()
                 <th scope="row">Ünnapnapok: </br> (egyenként új sorban)</th>
                 <td><textarea id="estimated_delivery_holidays" name="estimated_delivery_holidays" rows="15" cols="75"><?php echo get_option('estimated_delivery_holidays'); ?></textarea></td>
             </tr>
+            <tr valign="top">
+                <th scope="row">Engedélyezés a termék oldalon</th>
+                <td><input name="estimated_delivery_enable_on_product" type="checkbox" value="1" <?php checked( '1', get_option( 'estimated_delivery_enable_on_product' ) ); ?> /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Engedélyezés a kosár oldalon</th>
+                <td><input name="estimated_delivery_enable_on_cart" type="checkbox" value="1" <?php checked( '1', get_option( 'estimated_delivery_enable_on_cart' ) ); ?> /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Engedélyezés a fizetés oldalon</th>
+                <td><input name="estimated_delivery_enable_on_checkout" type="checkbox" value="1" <?php checked( '1', get_option( 'estimated_delivery_enable_on_checkout' ) ); ?> /></td>
+            </tr>
         </table>
         <?php submit_button(null, null, null, null, "id='estimated_delivery_submit_button'"); ?>
     </form>

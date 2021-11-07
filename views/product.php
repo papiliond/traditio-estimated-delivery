@@ -46,7 +46,10 @@ function estimated_delivery_product_template()
 
 function estimated_delivery_single_product_summary()
 {
-    estimated_delivery_product_template();
+    $enable = get_option('estimated_delivery_enable_on_product');
+    if ($enable) {
+        estimated_delivery_product_template();
+    }
 }
 
 add_action("woocommerce_before_single_product_summary", "estimated_delivery_single_product_summary", 20, 0);

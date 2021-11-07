@@ -2,8 +2,7 @@
 
 function estimated_delivery_head_content()
 {
-    $utils =  file_get_contents(dirname(__FILE__) . '/../assets/utils.js');
-    $display = file_get_contents(dirname(__FILE__) . '/../assets/display.js');
+    $utils =  file_get_contents(dirname(__FILE__) . '/assets/utils.js');
 
     $deliveryInDays = get_option('estimated_delivery_in_days');
     $deadlineTime = get_option('estimated_delivery_deadline_time');
@@ -12,7 +11,6 @@ function estimated_delivery_head_content()
 ?>
     <script>
         <?php echo $utils; ?>
-        <?php echo $display; ?>
 
         window.__ESTIMATED_DEADLINE_TIME__ = <?php echo json_encode($deadlineTime); ?>;
         window.__ESTIMATED_DELIVERY__ = getEstimatedDelivery(<?php echo json_encode($deliveryInDays) . ',' . json_encode($deadlineTime) . ',' . json_encode($holidays); ?>);

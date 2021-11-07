@@ -1,6 +1,6 @@
 <?php
 
-function estimated_delivery_mini_checkout_template()
+function estimated_delivery_checkout_template()
 {
     echo '<style>
         .estimatedDelivery-checkout-root {
@@ -45,7 +45,10 @@ function estimated_delivery_mini_checkout_template()
 
 function estimated_delivery_checkout_summary()
 {
-    estimated_delivery_mini_checkout_template();
+    $enable = get_option('estimated_delivery_enable_on_checkout');
+    if ($enable) {
+        estimated_delivery_checkout_template();
+    }
 }
 
 add_action("woocommerce_before_checkout_form", "estimated_delivery_checkout_summary", 10, 0);
