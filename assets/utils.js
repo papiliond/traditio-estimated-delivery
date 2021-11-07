@@ -1,8 +1,7 @@
 function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = []) {
   const startDate = new Date();
-  const startTime = toStrTime(startDate);
 
-  if (!getIsHoliday(startDate, holidays) && !getIsWeekend(startDate) && parseStrTime(deadlineTime).getTime() < parseStrTime(startTime).getTime()) {
+  if (!getIsHoliday(startDate, holidays) && !getIsWeekend(startDate) && isAfterDeadline(startDate, deadlineTime)) {
     startDate.setDate(startDate.getDate() + 1);
   }
 
@@ -17,7 +16,6 @@ function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = []) {
 
   return daysNeeded;
 }
-
 
 // Calculates days needed to delivery related to 'startDate'
 function getDaysNeeded(startDate, holidays, neededMore) {
@@ -36,7 +34,10 @@ function getDaysNeeded(startDate, holidays, neededMore) {
 // Utility functions
 
 function getIsHoliday(date, holidays) {
-  return holidays.some((strDate) => strDate.trim() === toStrDate(date));
+  return holidays.some((strDate) => {
+    console.log(strDate, holidays);
+    return strDate.trim() === toStrDate(date);
+  });
 }
 
 function getIsWeekend(date) {
@@ -44,13 +45,18 @@ function getIsWeekend(date) {
 }
 
 function toStrDate(date) {
-  return new Intl.DateTimeFormat("en-GB", { year: "2-digit", day: "2-digit", month: "2-digit" }).format(date);
+  return new Intl.DateTimeFormat("en", { year: "2-digit", day: "2-digit", month: "2-digit" }).format(date);
 }
 
 function toStrTime(date) {
-  return new Intl.DateTimeFormat("en-GB", { timeStyle: "short" }).format(date);
+  return new Intl.DateTimeFormat("en", { timeStyle: "short" }).format(date);
 }
 
 function parseStrTime(str) {
   return new Date("1970-01-01T" + str + "Z");
+}
+
+function isAfterDeadline(date, deadlineTime) {
+  const startTime = toStrTime(date);
+  return parseStrTime(deadlineTime).getTime() < parseStrTime(startTime).getTime();
 }
