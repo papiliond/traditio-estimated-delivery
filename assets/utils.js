@@ -34,7 +34,11 @@ function getDaysNeeded(startDate, holidays, neededMore) {
 // Utility functions
 
 function getIsHoliday(date, holidays) {
-  return holidays.some((strDate) => strDate.trim() === toStrDate(date));
+  return holidays.some((strDate) => normalizeStrDate(strDate) === toStrDate(date));
+}
+
+function normalizeStrDate(strDate) {
+  return strDate.trim().replace("\r", "");
 }
 
 function getIsWeekend(date) {
