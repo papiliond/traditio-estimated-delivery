@@ -1,18 +1,15 @@
-function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = []) {
-  const startDate = new Date();
-
+function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = [], startDate = new Date()) {
   if (!getIsHoliday(startDate, holidays) && !getIsWeekend(startDate) && isAfterDeadline(startDate, deadlineTime)) {
     startDate.setDate(startDate.getDate() + 1);
   }
 
-  const deliveryDates = [];
-  for (let i = 0; i < deliveryInDays; i++) {
-    const date = new Date(startDate);
-    date.setDate(date.getDate() + i);
-    deliveryDates.push(date);
-  }
-
   let daysNeeded = getDaysNeeded(startDate, holidays, deliveryInDays);
+
+  const endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate() + (daysNeeded - 1));
+  if (!getIsHoliday(endDate, holidays) && !getIsWeekend(endDate)) {
+    daysNeeded -= 1;
+  }
 
   return daysNeeded;
 }
@@ -31,6 +28,21 @@ function getDaysNeeded(startDate, holidays, neededMore) {
   return 1 + getDaysNeeded(nextDate, holidays, isHolidayOrWeekend ? neededMore : neededMore - 1);
 }
 
+function getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime, startDate = new Date()) {
+  let label = "";
+  if (estimatedDelivery === 2 && !getIsWeekend(startDate) && !isAfterDeadline(startDate, deadlineTime)) {
+    label = "holnap";
+  } else if (estimatedDelivery === 2 || estimatedDelivery === 3) {
+    label = "holnapután";
+  } else {
+    const deliveryDate = startDate;
+    deliveryDate.setDate(deliveryDate.getDate() + estimatedDelivery);
+    label = formatToHungarian(deliveryDate);
+  }
+
+  return label;
+}
+
 // Utility functions
 
 function getIsHoliday(date, holidays) {
@@ -42,7 +54,7 @@ function normalizeStrDate(strDate) {
 }
 
 function getIsWeekend(date) {
-  return date.getDay() === 6;
+  return date.getDay() === 6 || date.getDay() === 0;
 }
 
 function toStrDate(date) {
@@ -50,7 +62,7 @@ function toStrDate(date) {
 }
 
 function toStrTime(date) {
-  return new Intl.DateTimeFormat("en", { timeStyle: "short" }).format(date);
+  return new Intl.DateTimeFormat("en", { timeStyle: "short", hour12: false }).format(date);
 }
 
 function parseStrTime(str) {
@@ -63,7 +75,7 @@ function isAfterDeadline(date, deadlineTime) {
 }
 
 function formatToHungarian(date) {
-  const en = [4, 5, 7, 9, 0, 11, 12];
+  const en = [4, 5, 7, 9, 0, 11, 12, 21, 22, 31];
   const jen = [1];
   const an = [2, 3, 6, 8];
 
@@ -81,17 +93,4 @@ function formatToHungarian(date) {
   return Intl.DateTimeFormat("hu", { month: "long", day: "numeric" }).format(date).replace(".", "") + suffix;
 }
 
-function getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime) {
-  let label = "";
-  if (estimatedDelivery === 2 && !getIsWeekend(new Date()) && !isAfterDeadline(new Date(), deadlineTime)) {
-    label = "holnap";
-  } else if (estimatedDelivery === 2 || estimatedDelivery === 3) {
-    label = "holnapután";
-  } else {
-    const deliveryDate = new Date();
-    deliveryDate.setDate(deliveryDate.getDate() + estimatedDelivery);
-    label = formatToHungarian(deliveryDate);
-  }
-
-  return label;
-}
+// module.exports = { getEstimatedDelivery, getEstimatedDeliveryLabel };
