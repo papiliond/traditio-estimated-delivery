@@ -1,3 +1,5 @@
 const run = require("./tests/runner");
 
-run();
+const name = process.argv[2];
+
+run(name);

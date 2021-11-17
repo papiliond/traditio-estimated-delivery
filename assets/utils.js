@@ -1,41 +1,33 @@
 function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = [], startDate = new Date()) {
+  let neededMore = deliveryInDays;
+
+  // Not delivering today because it's workday but after 'deadlineTime'
   if (!getIsHoliday(startDate, holidays) && !getIsWeekend(startDate) && isAfterDeadline(startDate, deadlineTime)) {
-    startDate.setDate(startDate.getDate() + 1);
+    neededMore += 1;
   }
 
-  let daysNeeded = getDaysNeeded(startDate, holidays, deliveryInDays);
-
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + (daysNeeded - 1));
-  if (!getIsHoliday(endDate, holidays) && !getIsWeekend(endDate)) {
-    daysNeeded -= 1;
-  }
-
-  return daysNeeded;
+  return getDaysNeeded(startDate, holidays, neededMore);
 }
 
 // Calculates days needed to delivery related to 'startDate'
 function getDaysNeeded(startDate, holidays, neededMore) {
-  if (!neededMore) {
-    return 0;
-  }
-
   let nextDate = new Date(startDate);
   nextDate.setDate(nextDate.getDate() + 1);
 
   const isHolidayOrWeekend = getIsHoliday(startDate, holidays) || getIsWeekend(startDate);
+  const nextNeededMore = isHolidayOrWeekend ? neededMore : neededMore - 1;
 
-  return 1 + getDaysNeeded(nextDate, holidays, isHolidayOrWeekend ? neededMore : neededMore - 1);
+  return nextNeededMore < 1 ? 0 : 1 + getDaysNeeded(nextDate, holidays, nextNeededMore);
 }
 
 function getEstimatedDeliveryLabel(estimatedDelivery, deadlineTime, startDate = new Date()) {
   let label = "";
-  if (estimatedDelivery === 2 && !getIsWeekend(startDate) && !isAfterDeadline(startDate, deadlineTime)) {
+  if (estimatedDelivery === 1) {
     label = "holnap";
-  } else if (estimatedDelivery === 2 || estimatedDelivery === 3) {
+  } else if (estimatedDelivery === 2) {
     label = "holnapután";
   } else {
-    const deliveryDate = startDate;
+    const deliveryDate = new Date(startDate);
     deliveryDate.setDate(deliveryDate.getDate() + estimatedDelivery);
     label = formatToHungarian(deliveryDate);
   }
@@ -93,4 +85,6 @@ function formatToHungarian(date) {
   return Intl.DateTimeFormat("hu", { month: "long", day: "numeric" }).format(date).replace(".", "") + suffix;
 }
 
-// module.exports = { getEstimatedDelivery, getEstimatedDeliveryLabel };
+if (typeof window === "undefined") {
+  module.exports = { getEstimatedDelivery, getEstimatedDeliveryLabel };
+}

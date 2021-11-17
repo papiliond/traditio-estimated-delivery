@@ -5,6 +5,7 @@ module.exports = [
     deadlineTime: "13:00",
     deliveryInDays: 2,
     expectedResult: new Date("2021-11-12T12:00:00"),
+    expectedLabel: "november 12-én",
   },
   {
     startDate: new Date("2021-11-08T14:00:00"),
@@ -12,6 +13,7 @@ module.exports = [
     deadlineTime: "13:00",
     deliveryInDays: 2,
     expectedResult: new Date("2021-11-12T14:00:00"),
+    expectedLabel: "november 12-én",
   },
   {
     startDate: new Date("2021-11-09T11:00:00"),
@@ -19,6 +21,7 @@ module.exports = [
     deadlineTime: "13:00",
     deliveryInDays: 2,
     expectedResult: new Date("2021-11-12T11:00:00"),
+    expectedLabel: "november 12-én",
   },
   {
     startDate: new Date("2021-11-10T11:00:00"),
@@ -26,6 +29,7 @@ module.exports = [
     deadlineTime: "13:00",
     deliveryInDays: 2,
     expectedResult: new Date("2021-11-12T11:00:00"),
+    expectedLabel: "holnapután",
   },
   {
     startDate: new Date("2021-11-10T14:00:00"),
@@ -33,5 +37,6 @@ module.exports = [
     deadlineTime: "13:00",
     deliveryInDays: 2,
     expectedResult: new Date("2021-11-15T14:00:00"),
+    expectedLabel: "november 15-én",
   },
 ];
