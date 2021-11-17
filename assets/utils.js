@@ -1,5 +1,5 @@
 function getEstimatedDelivery(deliveryInDays, deadlineTime, holidays = [], startDate = new Date()) {
-  let neededMore = deliveryInDays;
+  let neededMore = Number(deliveryInDays);
 
   // Not delivering today because it's workday but after 'deadlineTime'
   if (!getIsHoliday(startDate, holidays) && !getIsWeekend(startDate) && isAfterDeadline(startDate, deadlineTime)) {
